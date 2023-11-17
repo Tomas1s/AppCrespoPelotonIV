@@ -122,8 +122,17 @@ const getAdmin = async (req: Request, res: Response) => {
                 .status(404)
                 .json({ msg: "Administrador no encontrado." });
         }
+        const areasPromises = admin.areas.map(async (areaId) => {
+            const area = await Area.get({ entidad: "area", id: areaId });
+            return area ? area.nombre : null;
+        });
+        const areaNames = await Promise.all(areasPromises);
 
-        const adminWithoutPassword = { ...admin, password: undefined };
+        const adminWithoutPassword = {
+            ...admin,
+            password: undefined,
+            areas: areaNames.filter(Boolean),
+        };
 
         res.status(200).json({ data: adminWithoutPassword });
     } catch (error) {

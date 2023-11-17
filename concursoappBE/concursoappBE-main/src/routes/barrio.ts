@@ -33,6 +33,6 @@ router
     .patch(checkRol(["EMPLEADO", "CAPATAZ", "JEFE"]), updateNeighborhood)
     .put(checkRol(["CAPATAZ", "JEFE"]), disableNeighborhood)
     .post(checkRol(["CAPATAZ", "JEFE"]), activeNeighborhood);
-router.route("/eliminar/:id").delete(checkRol(["JEFE"]), deleteNeighborhood);
+router.route("/:id").delete(checkRol(["JEFE"]), deleteNeighborhood);
 
 export { router };
