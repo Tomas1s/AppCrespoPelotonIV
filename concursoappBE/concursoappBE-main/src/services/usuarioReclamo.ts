@@ -161,6 +161,7 @@ const deleteComplaint = async (req: Request, res: Response) => {
                 msg: "El reclamo no puede ser eliminado.",
             });
         }
+        await data[0].delete();
 
         res.status(200).json({
             msg: "Reclamo eliminado exitosamente.",
